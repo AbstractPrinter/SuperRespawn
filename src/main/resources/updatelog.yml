@@ -1,0 +1,11 @@
+1.0.1.202101020000_Alpha:
+  - "* 更名 NearestSpawn 插件为 SuperRespawn,寓意为超级重生,希望他能有更多的重生功能"
+  - "* 添加三种重生提示的位置 Title and SubTitle,Chat,ActionBar"
+  - "* 重置所有指令，所以以往版本的权限需要重新设置,sorry。"
+1.0.2.202101030008_Alpha:
+  - "* 修改指令setspawn -> add"
+  - "* 修改指令delspawn -> del"
+  - "* 新增指令 set ,功能:对已有重生点进行设置"
+  - "* set->添加功能:设置提示"
+  - "* 新增指令 info,功能:查看插件信息"
+  - "* 新增指令 list,功能:列出所有重生点及相关信息"

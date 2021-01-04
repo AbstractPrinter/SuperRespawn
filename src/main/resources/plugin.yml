@@ -1,0 +1,13 @@
+name: SuperRespawn
+version: ${project.version}
+main: cn.wangyudi.superrespawn.SuperRespawn
+api-version: 1.13
+prefix: SuperRespawn
+softdepend: [ Vault ]
+authors: [ Wangyudi ]
+
+commands:
+  superrespawn:
+    description: SuperRespawn Commands
+    usage: There may be a problem with the command you entered, please enter /srs help for reference
+    aliases: [srspawn,srs,spawn]

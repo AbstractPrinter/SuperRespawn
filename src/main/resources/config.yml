@@ -1,0 +1,14 @@
+# RespawnMode有三种模式。
+# default 为默认模式,此模式插件不会接管重生功能。
+# nearest 开启此模式,玩家会匹配最近的出生点。
+# weight  开启此模式,玩家会匹配权重最高的出生点。
+mode: nearest
+
+# Prompt - 重生提示
+# chat:在消息框发送提示
+# title:在屏幕中央发送提示
+prompt:
+  chat: true
+  title: true
+
+version: ${project.version}
