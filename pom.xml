@@ -6,7 +6,7 @@
 
     <groupId>cn.wangyudi</groupId>
     <artifactId>SuperRespawn</artifactId>
-    <version>1.0.6.202101051213_Alpha</version>
+    <version>1.1.2.202101061413_Release</version>
     <packaging>jar</packaging>
 
     <name>SuperRespawn</name>

@@ -3,7 +3,6 @@ package cn.wangyudi.superrespawn;
 import cn.wangyudi.superrespawn.commands.BukkitCommandsExecutor;
 import cn.wangyudi.superrespawn.listeners.RespawnListener;
 import cn.wangyudi.superrespawn.sql.Dber;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,7 +12,6 @@ import java.util.HashMap;
 
 public final class SuperRespawn extends JavaPlugin {
     private static Connection databaseConnection;
-    private static String databaseFilename;
     private static HashMap<String, Location> respawnLocations;
     private static HashMap<String, Integer> respawnWeights;
     private static HashMap<String,String[]> respawnPrompts;
@@ -22,6 +20,7 @@ public final class SuperRespawn extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         saveDefaultConfig();
+        String databaseFilename;
         databaseFilename = getDataFolder() + "/data.db";
         if (!new File(databaseFilename).exists()) {
             saveResource("data.db", false);
