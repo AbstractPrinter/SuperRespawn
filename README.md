@@ -7,7 +7,7 @@
 ## 功能
 
 | 序号 | 功能 | 是否实现 |
-| :----: | :----: | :----: |
+| :----: | :---- | :----: |
 | 1 | 每个世界都允许有多个重生点 | √ |
 | 2 | 按照距离选择重生点 | √ |
 | 3 | 按照权重选择重生点 | √ |
@@ -19,7 +19,7 @@
 ## 指令
 
 | 指令 | 功能 | 权限节点 |
-| :----: | :----: | :----: |
+| :---- | :---- | :---- |
 | /srspawn help | 显示帮助 | superrespawn.command.help |
 | /srspawn mode <default,nearest,weight> | 设置重生模式 | superrespawn.command.mode |
 | /srspawn add <spawn_name> | 以自身为坐标,添加一个重生点 | superrespawn.command.add |
@@ -31,7 +31,7 @@
 ## 权限
 
 | 权限节点 | 功能介绍 |
-| :----: | :----: |
+| :---- | :---- |
 | superrespawn.command.指令名 | 指令的权限节点 |
 | superrespawn.spawn.重生点名 | 决定玩家是否有权限复活在某点 |
 
