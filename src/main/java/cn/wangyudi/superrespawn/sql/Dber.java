@@ -28,6 +28,7 @@ public class Dber {
             pst.setFloat(6, loc.getPitch());
             pst.setFloat(7, loc.getYaw());
             pst.executeUpdate();
+            pst.close();
         } catch (SQLException throwables) {
             plugin.getLogger().info(throwables.getMessage());
         }
@@ -41,11 +42,68 @@ public class Dber {
             pst.setString(1, name);
             pst.setInt(2, weights);
             pst.executeUpdate();
+            pst.close();
         } catch (SQLException throwables) {
             plugin.getLogger().info(throwables.getMessage());
         }
         return this;
     }
+
+    public Dber insertPrompt(String name) {
+        try {
+            String sql = "INSERT INTO srspawn_prompts(spawn_name) VALUES(?)";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, name);
+            pst.executeUpdate();
+            pst.close();
+        } catch (SQLException throwables) {
+            plugin.getLogger().info(throwables.getMessage());
+        }
+        return this;
+    }
+
+    public Dber updatePromptChat(String name, String chat) {
+        try {
+            String sql = "UPDATE srspawn_prompts SET prompt_chat=? WHERE spawn_name=?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, chat.replace('&','§'));
+            pst.setString(2, name);
+            pst.executeUpdate();
+            pst.close();
+        } catch (SQLException throwables) {
+            plugin.getLogger().info(throwables.getMessage());
+        }
+        return this;
+    }
+
+    public Dber updatePromptTitle(String name, String title) {
+        try {
+            String sql = "UPDATE srspawn_prompts SET prompt_title=? WHERE spawn_name=?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, title.replace('&','§'));
+            pst.setString(2, name);
+            pst.executeUpdate();
+            pst.close();
+        } catch (SQLException throwables) {
+            plugin.getLogger().info(throwables.getMessage());
+        }
+        return this;
+    }
+
+    public Dber updatePromptSubTitle(String name, String subtitle) {
+        try {
+            String sql = "UPDATE srspawn_prompts SET prompt_subtitle=? WHERE spawn_name=?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, subtitle.replace('&','§'));
+            pst.setString(2, name);
+            pst.executeUpdate();
+            pst.close();
+        } catch (SQLException throwables) {
+            plugin.getLogger().info(throwables.getMessage());
+        }
+        return this;
+    }
+
 
     public Dber updateLoc(String name, Location loc) {
         try {
@@ -59,6 +117,20 @@ public class Dber {
             pst.setFloat(6, loc.getYaw());
             pst.setString(7, name);
             pst.executeUpdate();
+            pst.close();
+        } catch (SQLException throwables) {
+            plugin.getLogger().info(throwables.getMessage());
+        }
+        return this;
+    }
+
+    public Dber updateWeight(String name, Integer weight) {
+        try {
+            PreparedStatement pst = connection.prepareStatement("UPDATE srspawn_weights SET spawn_weight=? WHERE spawn_name=?");
+            pst.setInt(1, weight);
+            pst.setString(2, name);
+            pst.executeUpdate();
+            pst.close();
         } catch (SQLException throwables) {
             plugin.getLogger().info(throwables.getMessage());
         }
@@ -71,6 +143,7 @@ public class Dber {
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setString(1, name);
             pst.executeUpdate();
+            pst.close();
         } catch (SQLException throwables) {
             plugin.getLogger().info(throwables.getMessage());
         }
@@ -83,6 +156,20 @@ public class Dber {
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setString(1, name);
             pst.executeUpdate();
+            pst.close();
+        } catch (SQLException throwables) {
+            plugin.getLogger().info(throwables.getMessage());
+        }
+        return this;
+    }
+
+    public Dber delPrompt(String name){
+        try {
+            String sql = "DELETE FROM srspawn_prompts WHERE spawn_name=?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, name);
+            pst.executeUpdate();
+            pst.close();
         } catch (SQLException throwables) {
             plugin.getLogger().info(throwables.getMessage());
         }
@@ -127,4 +214,27 @@ public class Dber {
         }
         return null;
     }
+
+    public HashMap<String, String[]> getRespawnPrompts() {
+        try {
+            HashMap<String, String[]> respawnPrompts = new HashMap<>();
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM srspawn_prompts");
+            while (rs.next()) {
+                String[] nr = new String[3];
+                nr[0] = rs.getString("prompt_chat");
+                nr[1] = rs.getString("prompt_title");
+                nr[2] = rs.getString("prompt_subtitle");
+                respawnPrompts.put(rs.getString("spawn_name"), nr);
+            }
+            rs.close();
+            statement.close();
+            return respawnPrompts;
+        } catch (SQLException throwables) {
+            plugin.getLogger().info(throwables.getMessage());
+        }
+        return null;
+    }
+
+
 }

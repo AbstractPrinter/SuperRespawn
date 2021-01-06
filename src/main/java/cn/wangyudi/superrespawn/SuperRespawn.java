@@ -16,6 +16,7 @@ public final class SuperRespawn extends JavaPlugin {
     private static String databaseFilename;
     private static HashMap<String, Location> respawnLocations;
     private static HashMap<String, Integer> respawnWeights;
+    private static HashMap<String,String[]> respawnPrompts;
 
     @Override
     public void onEnable() {
@@ -54,6 +55,7 @@ public final class SuperRespawn extends JavaPlugin {
             Dber dber = new Dber(this,databaseConnection);
             respawnLocations = dber.getRespawnLocations();
             respawnWeights = dber.getRespawnWeights();
+            respawnPrompts = dber.getRespawnPrompts();
 
         } catch (SQLException e) {
             getLogger().info("§c" + e.getMessage());
@@ -61,7 +63,7 @@ public final class SuperRespawn extends JavaPlugin {
             getServer().shutdown();
         }
 
-        getServer().getPluginCommand("superrespawn").setExecutor(new BukkitCommandsExecutor(this, databaseConnection, respawnLocations, respawnWeights));
+        getServer().getPluginCommand("superrespawn").setExecutor(new BukkitCommandsExecutor(this, databaseConnection, respawnLocations, respawnWeights,respawnPrompts));
         getServer().getPluginManager().registerEvents(new RespawnListener(this, respawnLocations, respawnWeights), this);
     }
 
