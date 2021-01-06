@@ -66,7 +66,7 @@ public class Dber {
         try {
             String sql = "UPDATE srspawn_prompts SET prompt_chat=? WHERE spawn_name=?";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setString(1, chat.replace('&','§'));
+            pst.setString(1, chat);
             pst.setString(2, name);
             pst.executeUpdate();
             pst.close();
@@ -80,7 +80,7 @@ public class Dber {
         try {
             String sql = "UPDATE srspawn_prompts SET prompt_title=? WHERE spawn_name=?";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setString(1, title.replace('&','§'));
+            pst.setString(1, title);
             pst.setString(2, name);
             pst.executeUpdate();
             pst.close();
@@ -94,7 +94,7 @@ public class Dber {
         try {
             String sql = "UPDATE srspawn_prompts SET prompt_subtitle=? WHERE spawn_name=?";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setString(1, subtitle.replace('&','§'));
+            pst.setString(1, subtitle);
             pst.setString(2, name);
             pst.executeUpdate();
             pst.close();

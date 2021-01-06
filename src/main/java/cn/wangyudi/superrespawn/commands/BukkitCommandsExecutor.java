@@ -12,13 +12,14 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BukkitCommandsExecutor implements TabExecutor {
     private final JavaPlugin plugin;
     private final Connection databaseConnection;
-    private final HashMap<String, Location> respawnLocations;
-    private final HashMap<String, Integer> respawnWeights;
-    private final HashMap<String, String[]> respawnPrompts;
+    private HashMap<String, Location> respawnLocations;
+    private HashMap<String, Integer> respawnWeights;
+    private HashMap<String, String[]> respawnPrompts;
 
     public BukkitCommandsExecutor(JavaPlugin plugin, Connection databaseConnection, HashMap<String, Location> respawnLocations, HashMap<String, Integer> respawnWeights, HashMap<String, String[]> respawnPrompts) {
         this.plugin = plugin;
@@ -35,7 +36,7 @@ public class BukkitCommandsExecutor implements TabExecutor {
             return true;
         }
 
-        if (sender.hasPermission(String.format("superrespawn.%s", args[0]))) {
+        if (sender.hasPermission(String.format("superrespawn.command.%s", args[0]))) {
             if (args[0].equalsIgnoreCase("help") && args.length == 1) {
                 sender.sendMessage("§6§o§lSuperReSpawn");
                 sender.sendMessage(String.format("§6/%s %s: §f%s", label, "help", "显示帮助"));
@@ -44,7 +45,6 @@ public class BukkitCommandsExecutor implements TabExecutor {
                 sender.sendMessage(String.format("§6/%s %s: §f%s", label, "del <name>", "删除一个重生点"));
                 sender.sendMessage(String.format("§6/%s %s: §f%s", label, "set <name>", "设置某重生点"));
                 sender.sendMessage(String.format("§6/%s %s: §f%s", label, "list", "列出所有重生点"));
-                sender.sendMessage(String.format("§6/%s %s: §f%s", label, "info", "获取插件信息"));
                 sender.sendMessage(String.format("§6/%s %s: §f%s", label, "reload", "重载插件配置/数据文件"));
                 return true;
             }
@@ -115,31 +115,55 @@ public class BukkitCommandsExecutor implements TabExecutor {
                     }
                     if (args[2].equalsIgnoreCase("chat")) {
                         Dber dber = new Dber(plugin, databaseConnection);
-                        dber.updatePromptChat(args[1], args[3]);
+                        String str = args[3].replace('&', '§');
+                        dber.updatePromptChat(args[1], str);
                         String[] nr = respawnPrompts.get(args[1]);
-                        nr[0] = args[3];
+                        nr[0] = str;
                         respawnPrompts.put(args[1], nr);
                         sender.sendMessage("§a§oUpdate Succeed");
                     }
                     if (args[2].equalsIgnoreCase("title")) {
                         Dber dber = new Dber(plugin, databaseConnection);
-                        dber.updatePromptTitle(args[1], args[3]);
+                        String str = args[3].replace('&', '§');
+                        dber.updatePromptTitle(args[1], str);
                         String[] nr = respawnPrompts.get(args[1]);
-                        nr[1] = args[3];
+                        nr[1] = str;
                         respawnPrompts.put(args[1], nr);
                         sender.sendMessage("§a§oUpdate Succeed");
                     }
                     if (args[2].equalsIgnoreCase("subtitle")) {
                         Dber dber = new Dber(plugin, databaseConnection);
-                        dber.updatePromptSubTitle(args[1], args[3]);
+                        String str = args[3].replace('&', '§');
+                        dber.updatePromptSubTitle(args[1], str);
                         String[] nr = respawnPrompts.get(args[1]);
-                        nr[2] = args[3];
+                        nr[2] = str;
                         respawnPrompts.put(args[1], nr);
                         sender.sendMessage("§a§oUpdate Succeed");
                     }
                 } else {
                     sender.sendMessage("§c§oThe respawn not found");
                 }
+                return true;
+            }
+            if (args[0].equalsIgnoreCase("list")) {
+                sender.sendMessage("§6§o§lSuperRespawn List");
+                for (Map.Entry<String, Location> respawnLocationsEntry : respawnLocations.entrySet()) {
+                    sender.sendMessage(String.format("§c%s§f:\n§fWeight: %s§f,\nChat: %s§f,\nTitle: %s§f,\nSubTitle: %s",
+                            respawnLocationsEntry.getKey(),
+                            respawnWeights.get(respawnLocationsEntry.getKey()),
+                            respawnPrompts.get(respawnLocationsEntry.getKey())[0],
+                            respawnPrompts.get(respawnLocationsEntry.getKey())[1],
+                            respawnPrompts.get(respawnLocationsEntry.getKey())[2]));
+                }
+                return true;
+            }
+            if (args[0].equalsIgnoreCase("reload")) {
+                Dber dber = new Dber(plugin, databaseConnection);
+                respawnLocations = dber.getRespawnLocations();
+                respawnWeights = dber.getRespawnWeights();
+                respawnPrompts = dber.getRespawnPrompts();
+                plugin.reloadConfig();
+                sender.sendMessage("§a§oReloaded");
                 return true;
             }
         } else {

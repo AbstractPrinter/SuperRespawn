@@ -13,3 +13,13 @@
 | 6 | 重生后向玩家发送自定义 Title/SubTitle | √ |
 | 7 | 重生后向玩家发送自定义 Chat | √ |
 
+## 指令
+| 指令 | 功能 | 权限节点 |
+| :----: | :----: | :----: |
+| /srspawn help | 显示帮助 | superrespawn.command.help |
+| /srspawn mode <default,nearest,weight> | 设置重生模式 | superrespawn.command.mode |
+| /srspawn add <name> | 以自身为坐标,添加一个重生点 | superrespawn.command.add |
+
+
+
+

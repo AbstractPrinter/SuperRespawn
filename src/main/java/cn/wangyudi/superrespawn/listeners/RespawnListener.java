@@ -15,11 +15,13 @@ public class RespawnListener implements Listener {
     private final JavaPlugin plugin;
     private final HashMap<String, Location> respawnLocations;
     private final HashMap<String, Integer> respawnWeights;
+    private final HashMap<String, String[]> respawnPrompts;
 
-    public RespawnListener(JavaPlugin plugin, HashMap<String, Location> respawnLocations, HashMap<String, Integer> respawnWeights) {
+    public RespawnListener(JavaPlugin plugin, HashMap<String, Location> respawnLocations, HashMap<String, Integer> respawnWeights, HashMap<String, String[]> respawnPrompts) {
         this.plugin = plugin;
         this.respawnLocations = respawnLocations;
         this.respawnWeights = respawnWeights;
+        this.respawnPrompts = respawnPrompts;
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -51,6 +53,14 @@ public class RespawnListener implements Listener {
         if (plugin.getConfig().getString("mode").equals("default")) {
             Player player = event.getPlayer();
             respawnLocation = player.getWorld().getSpawnLocation();
+        }
+        if (plugin.getConfig().getBoolean("prompt.chat")) {
+            Player player = event.getPlayer();
+            player.sendMessage(respawnPrompts.get(respawnName)[0]);
+        }
+        if (plugin.getConfig().getBoolean("prompt.title")) {
+            Player player = event.getPlayer();
+            player.sendTitle(respawnPrompts.get(respawnName)[1], respawnPrompts.get(respawnName)[2]);
         }
         event.setRespawnLocation(respawnLocation);
 

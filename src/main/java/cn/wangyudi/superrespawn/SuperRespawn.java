@@ -64,7 +64,7 @@ public final class SuperRespawn extends JavaPlugin {
         }
 
         getServer().getPluginCommand("superrespawn").setExecutor(new BukkitCommandsExecutor(this, databaseConnection, respawnLocations, respawnWeights,respawnPrompts));
-        getServer().getPluginManager().registerEvents(new RespawnListener(this, respawnLocations, respawnWeights), this);
+        getServer().getPluginManager().registerEvents(new RespawnListener(this, respawnLocations, respawnWeights,respawnPrompts), this);
     }
 
     @Override
