@@ -7,6 +7,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.sql.*;
 import java.util.HashMap;
 
+/**
+ * @author AbstractPrinter
+ */
 public class Dber {
     private final Connection connection;
     private final JavaPlugin plugin;

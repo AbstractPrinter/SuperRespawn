@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author AbstractPrinter
+ */
 public class BukkitCommandsExecutor implements TabExecutor {
     private final JavaPlugin plugin;
     private final Connection databaseConnection;
@@ -37,7 +40,7 @@ public class BukkitCommandsExecutor implements TabExecutor {
         }
 
         if (sender.hasPermission(String.format("superrespawn.command.%s", args[0]))) {
-            if (args[0].equalsIgnoreCase("help") && args.length == 1) {
+            if ("help".equalsIgnoreCase(args[0]) && args.length == 1) {
                 sender.sendMessage("§6§o§lSuperReSpawn");
                 sender.sendMessage(String.format("§6/%s %s: §f%s", label, "help", "显示帮助"));
                 sender.sendMessage(String.format("§6/%s %s: §f%s", label, "mode <default|nearest|weight>", "设置重生模式"));
@@ -48,8 +51,8 @@ public class BukkitCommandsExecutor implements TabExecutor {
                 sender.sendMessage(String.format("§6/%s %s: §f%s", label, "reload", "重载插件配置/数据文件"));
                 return true;
             }
-            if (args[0].equalsIgnoreCase("mode") && args.length == 2) {
-                if (args[1].equalsIgnoreCase("default") || args[1].equalsIgnoreCase("nearest") || args[1].equalsIgnoreCase("weight")) {
+            if ("mode".equalsIgnoreCase(args[0]) && args.length == 2) {
+                if ("default".equalsIgnoreCase(args[1]) || "nearest".equalsIgnoreCase(args[1]) || "weight".equalsIgnoreCase(args[1])) {
                     plugin.getConfig().set("mode", args[1]);
                     sender.sendMessage("§a§oSucceed");
                 } else {
@@ -57,7 +60,7 @@ public class BukkitCommandsExecutor implements TabExecutor {
                 }
                 return true;
             }
-            if (args[0].equalsIgnoreCase("add") && args.length == 2) {
+            if ("add".equalsIgnoreCase(args[0]) && args.length == 2) {
                 if (sender instanceof Player) {
                     Player player = (Player) sender;
                     Dber dber = new Dber(plugin, databaseConnection);
@@ -79,7 +82,7 @@ public class BukkitCommandsExecutor implements TabExecutor {
                 }
                 return true;
             }
-            if (args[0].equalsIgnoreCase("del") && args.length == 2) {
+            if ("del".equalsIgnoreCase(args[0]) && args.length == 2) {
                 if (respawnLocations.containsKey(args[1])) {
                     Dber dber = new Dber(plugin, databaseConnection);
                     dber.delLoc(args[1])
@@ -94,7 +97,7 @@ public class BukkitCommandsExecutor implements TabExecutor {
                 }
                 return true;
             }
-            if (args[0].equalsIgnoreCase("set") && args.length == 2) {
+            if ("set".equalsIgnoreCase(args[0]) && args.length == 2) {
                 if (respawnLocations.containsKey(args[1])) {
                     sender.sendMessage(String.format("§6/%s %s %s %s: §f%s", label, "set", args[1], "weight <Integer>", "设置权重"));
                     sender.sendMessage(String.format("§6/%s %s %s %s: §f%s", label, "set", args[1], "chat <message>", "设置消息框提示"));
@@ -105,15 +108,15 @@ public class BukkitCommandsExecutor implements TabExecutor {
                 }
                 return true;
             }
-            if (args[0].equalsIgnoreCase("set") && args.length == 4) {
+            if ("set".equalsIgnoreCase(args[0]) && args.length == 4) {
                 if (respawnLocations.containsKey(args[1])) {
-                    if (args[2].equalsIgnoreCase("weight")) {
+                    if ("weight".equalsIgnoreCase(args[2])) {
                         Dber dber = new Dber(plugin, databaseConnection);
                         dber.updateWeight(args[1], Integer.valueOf(args[3]));
                         respawnWeights.put(args[1], Integer.valueOf(args[3]));
                         sender.sendMessage("§a§oUpdate Succeed");
                     }
-                    if (args[2].equalsIgnoreCase("chat")) {
+                    if ("chat".equalsIgnoreCase(args[2])) {
                         Dber dber = new Dber(plugin, databaseConnection);
                         String str = args[3].replace('&', '§');
                         dber.updatePromptChat(args[1], str);
@@ -122,7 +125,7 @@ public class BukkitCommandsExecutor implements TabExecutor {
                         respawnPrompts.put(args[1], nr);
                         sender.sendMessage("§a§oUpdate Succeed");
                     }
-                    if (args[2].equalsIgnoreCase("title")) {
+                    if ("title".equalsIgnoreCase(args[2])) {
                         Dber dber = new Dber(plugin, databaseConnection);
                         String str = args[3].replace('&', '§');
                         dber.updatePromptTitle(args[1], str);
@@ -131,7 +134,7 @@ public class BukkitCommandsExecutor implements TabExecutor {
                         respawnPrompts.put(args[1], nr);
                         sender.sendMessage("§a§oUpdate Succeed");
                     }
-                    if (args[2].equalsIgnoreCase("subtitle")) {
+                    if ("subtitle".equalsIgnoreCase(args[2])) {
                         Dber dber = new Dber(plugin, databaseConnection);
                         String str = args[3].replace('&', '§');
                         dber.updatePromptSubTitle(args[1], str);
@@ -145,7 +148,7 @@ public class BukkitCommandsExecutor implements TabExecutor {
                 }
                 return true;
             }
-            if (args[0].equalsIgnoreCase("list")) {
+            if ("list".equalsIgnoreCase(args[0])) {
                 sender.sendMessage("§6§o§lSuperRespawn List");
                 for (Map.Entry<String, Location> respawnLocationsEntry : respawnLocations.entrySet()) {
                     sender.sendMessage(String.format("§c%s§f:\n§fWeight: %s§f,\nChat: %s§f,\nTitle: %s§f,\nSubTitle: %s",
@@ -157,7 +160,7 @@ public class BukkitCommandsExecutor implements TabExecutor {
                 }
                 return true;
             }
-            if (args[0].equalsIgnoreCase("reload")) {
+            if ("reload".equalsIgnoreCase(args[0])) {
                 Dber dber = new Dber(plugin, databaseConnection);
                 respawnLocations = dber.getRespawnLocations();
                 respawnWeights = dber.getRespawnWeights();
@@ -187,7 +190,7 @@ public class BukkitCommandsExecutor implements TabExecutor {
             return subCommandList;
         }
         if (args.length == 2) {
-            if (args[0].equalsIgnoreCase("mode")) {
+            if ("mode".equalsIgnoreCase(args[0])) {
                 List<String> subCommandList = new ArrayList<>();
                 subCommandList.add("default");
                 subCommandList.add("nearest");

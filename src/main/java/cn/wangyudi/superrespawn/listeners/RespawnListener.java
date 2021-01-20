@@ -11,6 +11,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author AbstractPrinter
+ */
 public class RespawnListener implements Listener {
     private final JavaPlugin plugin;
     private final HashMap<String, Location> respawnLocations;
@@ -28,7 +31,7 @@ public class RespawnListener implements Listener {
     public void onNearestSpawn(PlayerRespawnEvent event) {
         String respawnName = null;
         Location respawnLocation = null;
-        if (plugin.getConfig().getString("mode").equals("nearest")) {
+        if ("nearest".equals(plugin.getConfig().getString("mode"))) {
             double min = 999999999;
             Player player = event.getPlayer();
             for (Map.Entry<String, Location> spawnLocationsEntry : respawnLocations.entrySet()) {
@@ -39,7 +42,7 @@ public class RespawnListener implements Listener {
                 }
             }
         }
-        if (plugin.getConfig().getString("mode").equals("weight")) {
+        if ("weight".equals(plugin.getConfig().getString("mode"))) {
             int max = 0;
             Player player = event.getPlayer();
             for (Map.Entry<String, Integer> spawnWeightsEntry : respawnWeights.entrySet()) {
@@ -50,7 +53,7 @@ public class RespawnListener implements Listener {
                 }
             }
         }
-        if (plugin.getConfig().getString("mode").equals("default")) {
+        if ("default".equals(plugin.getConfig().getString("mode"))) {
             Player player = event.getPlayer();
             respawnLocation = player.getWorld().getSpawnLocation();
         }

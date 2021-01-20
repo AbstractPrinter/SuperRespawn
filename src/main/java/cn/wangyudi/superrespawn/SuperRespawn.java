@@ -10,6 +10,9 @@ import java.io.File;
 import java.sql.*;
 import java.util.HashMap;
 
+/**
+ * @author AbstractPrinter
+ */
 public final class SuperRespawn extends JavaPlugin {
     private static Connection databaseConnection;
     private static HashMap<String, Location> respawnLocations;
