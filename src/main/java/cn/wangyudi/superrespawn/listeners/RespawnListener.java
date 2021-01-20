@@ -63,7 +63,7 @@ public class RespawnListener implements Listener {
         }
         if (plugin.getConfig().getBoolean("prompt.title")) {
             Player player = event.getPlayer();
-            player.sendTitle(respawnPrompts.get(respawnName)[1], respawnPrompts.get(respawnName)[2]);
+            player.sendTitle(respawnPrompts.get(respawnName)[1], respawnPrompts.get(respawnName)[2],10,70,20);
         }
         event.setRespawnLocation(respawnLocation);
 
