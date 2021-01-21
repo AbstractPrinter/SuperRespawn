@@ -74,7 +74,7 @@ public class BukkitCommandsExecutor implements TabExecutor {
                                 .insertPrompt(args[1]);
                         respawnLocations.put(args[1], player.getLocation());
                         respawnWeights.put(args[1], 0);
-                        respawnPrompts.put(args[1], new String[3]);
+                        respawnPrompts.put(args[1], new String[]{"未设置","未设置","未设置"});
                         player.sendMessage("§a§oInsert Succeed");
                     }
                 } else {
