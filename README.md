@@ -47,6 +47,5 @@ https://github.com/AbstractPrinter/SuperRespawn/issues
 ## 开源地址
 https://github.com/AbstractPrinter/SuperRespawn
 
-
-
-
+## Jenkins 下载地址
+https://jenkins.royun.co/job/SuperRespawn
