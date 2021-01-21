@@ -1,9 +1,8 @@
 name: SuperRespawn
 version: ${project.version}
 main: cn.wangyudi.superrespawn.SuperRespawn
-api-version: 1.13
+api-version: 1.12.2
 prefix: SuperRespawn
-softdepend: [ Vault ]
 authors: [ Wangyudi ]
 
 commands:
