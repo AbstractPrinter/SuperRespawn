@@ -1,5 +1,6 @@
 package cn.wangyudi.superrespawn.listeners;
 
+import cn.wangyudi.superrespawn.tasks.DeadSpectator;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,8 +32,6 @@ public class RespawnListener implements Listener {
     public void onRespawn(PlayerRespawnEvent event) {
         String mode = plugin.getConfig().getString("mode");
         String respawnKey = null;
-        boolean isChat = plugin.getConfig().getBoolean("prompt.chat");
-        boolean isTitle = plugin.getConfig().getBoolean("prompt.title");
         Player player = event.getPlayer();
         Location respawnLoc = null;
         switch (mode) {
@@ -66,7 +65,14 @@ public class RespawnListener implements Listener {
             default:
                 respawnLoc = event.getRespawnLocation();
         }
+        event.setRespawnLocation(respawnLoc);
+        new DeadSpectator(this.plugin, player, 10);
+        this.sendPrompts(player, respawnKey);
+    }
 
+    private void sendPrompts(Player player, String respawnKey) {
+        boolean isChat = plugin.getConfig().getBoolean("prompt.chat");
+        boolean isTitle = plugin.getConfig().getBoolean("prompt.title");
         if (respawnKey != null) {
             if (isChat) {
                 player.sendMessage(this.respawnPrompts.get(respawnKey)[0]);
@@ -75,6 +81,5 @@ public class RespawnListener implements Listener {
                 player.sendTitle(this.respawnPrompts.get(respawnKey)[1], this.respawnPrompts.get(respawnKey)[2], 10, 70, 20);
             }
         }
-        event.setRespawnLocation(respawnLoc);
     }
 }
