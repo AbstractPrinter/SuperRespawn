@@ -1,7 +1,7 @@
 name: SuperRespawn
 version: ${project.version}
 main: cn.wangyudi.superrespawn.SuperRespawn
-api-version: 1.12.2
+api-version: 1.13
 prefix: SuperRespawn
 authors: [ Wangyudi ]
 
