@@ -55,7 +55,7 @@
     <repositories>
         <repository>
             <id>spigotmc-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+            <url>https://hub.royun.co/nexus/repository/SpigotMC-Snapshot/</url>
         </repository>
     </repositories>
 

@@ -24,7 +24,7 @@ public final class SuperRespawn extends JavaPlugin {
         // Plugin startup logic
         saveDefaultConfig();
         String databaseFilename;
-        databaseFilename = getDataFolder() + "/data.db";
+        databaseFilename = getDataFolder() + File.separator +"data.db";
         if (!new File(databaseFilename).exists()) {
             saveResource("data.db", false);
         }
